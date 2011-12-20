@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head class="html5">
+        <meta charset="utf-8">
+        <title>html5</title>
+</head>
+<body>
+	<h1>Wiregame</h1>
+	<h2 id="output"></h2>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var output = document.getElementById("output");
+  var socket = io.connect('http://192.168.56.101:8080');
+  socket.on('game', function (data) {
+	game = data.game;
+	if(game.state == 1) {
+		output.innerHTML = "Läuft, Zeit: " + game.time;
+	}
+	if(game.state == 3) {
+		var str = "ENDE<br />Fails: "+game.fails+"<br />Zeit: "+game.time+"";
+		output.innerHTML = str;
+	}
+  });
+</script>
+
+</body>
+</html>
